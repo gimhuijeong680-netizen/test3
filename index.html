@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>emora Brand Color</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+/* ── Design tokens (Figma: emora color / 기획서 styles) ─────────────── */
+:root {
+  --emora-light: #e6fbf9;          /* emora color/Light */
+  --emora-light-hover: #daf9f7;    /* emora color/Light :hover */
+  --emora-light-active: #b3f2ee;   /* emora color/Light :active */
+  --emora-mint: #bfffd1;
+  --emora-turquoise: #09d5c7;
+  --emora-turquoise-hover: #08c0b3;
+  --emora-turquoise-active: #07aa9f;
+  --emora-turquoise-dark: #07a095;
+
+  --text-black: #000;
+  --text-body-gray: #656565;       /* 기획서/body_gray */
+  --text-number: #8c8c8c;          /* 기획서/number */
+  --text-on-color: #fbfbfb;        /* 기획서/back_white */
+
+  --font: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --split: calc(50% + 25px);       /* left edge of the right column */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--text-black);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, p { margin: 0; }
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────── */
+.title-sm { font-size: 25px; font-weight: 600; line-height: 1.4; }   /* 기획서/title_sm */
+.body-md  { font-size: 20px; font-weight: 500; line-height: 1.45; }  /* 기획서/body_md */
+
+/* ── A. Hero ────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 502px;
+  padding-top: 158px;
+  background: var(--emora-light-active);
+  display: flex;
+  justify-content: center;
+}
+
+.hero__caption {
+  position: absolute;
+  top: 73px;
+  left: var(--split);
+  white-space: nowrap;
+}
+
+.logo {
+  position: relative;
+  width: min(604px, 100% - 32px);
+  aspect-ratio: 604 / 185.185;
+  align-self: flex-start;
+  border-radius: 4px;
+}
+
+.logo img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  height: auto;
+}
+
+.logo__grid {
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+/* Logo-only mark sits exactly where Group 38 is inside Group 176 */
+.logo__mark {
+  left: calc(41.946 / 604 * 100%);
+  top: calc(55.931 / 185.185 * 100%);
+  width: calc(496.043 / 604 * 100%);
+  transition: transform 0.6s var(--ease-out), opacity 0.8s var(--ease-out);
+}
+
+.logo:hover .logo__grid,
+.logo:focus-visible .logo__grid,
+.logo[aria-pressed="true"] .logo__grid,
+.logo.is-intro .logo__grid { opacity: 1; }
+
+.logo:focus-visible { outline: 2px solid var(--emora-turquoise-dark); outline-offset: 8px; }
+
+.js .logo.is-loading .logo__mark { opacity: 0; transform: translateY(12px); }
+
+/* ── B. Intro ───────────────────────────────────────────────────────── */
+.intro {
+  display: grid;
+  grid-template-columns: var(--split) 1fr;
+  padding: 76px 0 93px;
+}
+
+.intro__title { padding-left: 200px; }
+.intro__body { margin-top: 6px; }
+.intro__body p + p { margin-top: 29px; }  /* the empty line between paragraphs */
+
+/* ── C. Palette ─────────────────────────────────────────────────────── */
+.palette {
+  display: grid;
+  grid-template-columns: var(--split) 1fr;
+}
+
+.palette__col { display: flex; flex-direction: column; }
+
+/* Row heights from the Figma frame (each column totals 578px) */
+.palette__col--light .swatch:nth-child(1) { height: 95px; }
+.palette__col--light .swatch:nth-child(2) { height: 95px; }
+.palette__col--light .swatch:nth-child(3) { height: 294px; }
+.palette__col--light .swatch:nth-child(4) { height: 94px; }
+.palette__col--turquoise .swatch:nth-child(1) { height: 287px; }
+.palette__col--turquoise .swatch:nth-child(2) { height: 96px; }
+.palette__col--turquoise .swatch:nth-child(3) { height: 98px; }
+.palette__col--turquoise .swatch:nth-child(4) { height: 97px; }
+
+.swatch {
+  --pad-x: 41px;
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--swatch);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  outline: none;
+}
+
+.swatch--light { color: var(--text-number); }
+.swatch--dark  { --pad-x: 28px; color: var(--text-on-color); }
+
+.swatch:focus-visible { box-shadow: inset 0 0 0 2px currentColor; }
+
+/* State label, pinned to the bottom-left of each row */
+.swatch__state {
+  position: absolute;
+  left: var(--pad-x);
+  bottom: 8px;
+  line-height: 1.4;
+  transition: transform 0.3s var(--ease-out);
+}
+.swatch--dark .swatch__state { bottom: 4px; }
+.swatch__state--body { color: var(--text-body-gray); }
+
+/* Name + HEX/RGB block */
+.swatch__info {
+  position: absolute;
+  top: 41px;
+  left: var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.swatch__name { line-height: 1.5; }
+
+.swatch__values {
+  display: grid;
+  grid-template-columns: 70.45px auto;
+  grid-auto-rows: 24px;
+  line-height: 1.4;
+}
+
+/* Emora Turquoise Light: smaller caption set */
+.swatch__info--compact { top: 22px; left: 43px; gap: 15.6px; }
+.swatch__info--compact .swatch__name { font-size: 14.526px; line-height: 1.2; }
+.swatch__info--compact .swatch__values { font-size: 12.347px; line-height: 1.2; grid-auto-rows: 15.98px; letter-spacing: 0; }
+
+/* Emora Mint Green */
+.swatch__info--mint { top: 13px; gap: 13px; }
+.swatch__info--mint .swatch__name { font-size: 14.526px; line-height: 1.2; }
+
+/* ── Swatch interaction: hint + copy feedback ───────────────────────── */
+.swatch__hint {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  background: rgb(255 255 255 / 0.55);
+  color: var(--text-body-gray);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.3s var(--ease-out);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.swatch--dark .swatch__hint { background: rgb(0 0 0 / 0.14); color: var(--text-on-color); }
+
+.swatch:hover .swatch__hint,
+.swatch:focus-visible .swatch__hint,
+.swatch.is-copied .swatch__hint { opacity: 1; transform: none; }
+
+.swatch:hover .swatch__state,
+.swatch:focus-visible .swatch__state { transform: translateX(4px); }
+
+.swatch:active .swatch__hint { transform: scale(0.96); }
+
+/* ── Toast ──────────────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translate(-50%, 12px);
+  transition: opacity 0.2s ease, transform 0.35s var(--ease-out);
+  pointer-events: none;
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+.toast__chip {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.3);
+}
+
+/* ── Scroll reveal (only when JS is running) ────────────────────────── */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  :root { --split: 100%; }
+
+  .hero { height: auto; padding: 96px 16px 72px; }
+  .hero__caption { left: 0; right: 0; top: 40px; text-align: center; font-size: 16px; }
+
+  .intro { grid-template-columns: 1fr; gap: 16px; padding: 56px 16px 64px; }
+  .intro__title { padding-left: 0; }
+  .intro__body { margin-top: 0; font-size: 17px; }
+
+  .palette { grid-template-columns: 1fr; }
+  .swatch { --pad-x: 16px; }
+  .swatch__info--compact { left: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after { transition-duration: 0.01ms !important; transition-delay: 0s !important; }
+}
+</style>
+  <script>document.documentElement.classList.add("js");</script>
+  </head>
+<body>
+  <!-- A. Hero: logo with construction grid -->
+  <header class="hero">
+    <p class="hero__caption body-md">슬로건, 로고 영상 제작</p>
+    <button class="logo" type="button" aria-pressed="false" aria-label="emora 로고 — 클릭하면 가이드 그리드를 고정합니다">
+      <img class="logo__grid" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjYwNCIgaGVpZ2h0PSIxODUuMTg1IiB2aWV3Qm94PSIwIDAgNjA0IDE4NS4xODUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAxNzYiPgo8cGF0aCBpZD0iVmVjdG9yIDI3NjgiIG9wYWNpdHk9IjAuNSIgZD0iTTQxLjk0NTMgMTg0LjI1NEw0MS45NDUzIDEuNDc5OTNlLTA4IiBzdHJva2Utd2lkdGg9IjAuNzQ1Njc5IiBzdHJva2U9IiM2NTY1NjUiIHN0cm9rZS1vcGFjaXR5PSIwLjUiLz4KPHBhdGggaWQ9IlZlY3RvciAyNzgwIiBvcGFjaXR5PSIwLjUiIGQ9Ik0zLjEzNDFlLTA5IDYxLjUyMTZMNjA0IDYxLjUyMTYiIHN0cm9rZS13aWR0aD0iMC43NDU2NzkiIHN0cm9rZT0iIzY1NjU2NSIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgo8cGF0aCBpZD0iVmVjdG9yIDI3ODMiIG9wYWNpdHk9IjAuNSIgZD0iTTMuMTM0MWUtMDkgNTUuOTI1OUw2MDQgNTUuOTI1OSIgc3Ryb2tlLXdpZHRoPSIwLjc0NTY3OSIgc3Ryb2tlPSIjNjU2NTY1IiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+CjxwYXRoIGlkPSJWZWN0b3IgMjc4NCIgb3BhY2l0eT0iMC41IiBkPSJNMy4xMzQxZS0wOSA4My44ODk3TDYwNCA4My44ODk3IiBzdHJva2Utd2lkdGg9IjAuNzQ1Njc5IiBzdHJva2U9IiM2NTY1NjUiIHN0cm9rZS1vcGFjaXR5PSIwLjUiLz4KPHBhdGggaWQ9IlZlY3RvciAyNzg1IiBvcGFjaXR5PSIwLjUiIGQ9Ik0zLjEzNDFlLTA5IDkwLjQxMzdMNjA0IDkwLjQxMzciIHN0cm9rZS13aWR0aD0iMC43NDU2NzkiIHN0cm9rZT0iIzY1NjU2NSIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgo8cGF0aCBpZD0iVmVjdG9yIDI3ODEiIG9wYWNpdHk9IjAuNSIgZD0iTTMuMTM0MWUtMDkgMTI0Ljc2M0w2MDQgMTI0Ljc2MyIgc3Ryb2tlLXdpZHRoPSIwLjc0NTY3OSIgc3Ryb2tlPSIjNjU2NTY1IiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+CjxwYXRoIGlkPSJWZWN0b3IgMjc4MiIgb3BhY2l0eT0iMC41IiBkPSJNMy4xMzQxZS0wOSAxMzAuNDkzTDYwNCAxMzAuNDkzIiBzdHJva2Utd2lkdGg9IjAuNzQ1Njc5IiBzdHJva2U9IiM2NTY1NjUiIHN0cm9rZS1vcGFjaXR5PSIwLjUiLz4KPHBhdGggaWQ9IlZlY3RvciAyNzY5IiBvcGFjaXR5PSIwLjUiIGQ9Ik0xMTYuNTE2IDE4NS4xODVMMTE2LjUxNiAwLjkzMDY2NCIgc3Ryb2tlLXdpZHRoPSIwLjc0NTY3OSIgc3Ryb2tlPSIjNjU2NTY1IiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+CjxwYXRoIGlkPSJWZWN0b3IgMjc3MCIgb3BhY2l0eT0iMC41IiBkPSJNMTUzLjcwNyAxODQuODcxTDE1My43MDcgMC42MTYyMTEiIHN0cm9rZS13aWR0aD0iMC43NDU2NzkiIHN0cm9rZT0iIzY1NjU2NSIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgo8cGF0aCBpZD0iVmVjdG9yIDI3NzEiIG9wYWNpdHk9IjAuNSIgZD0iTTIwNi45MSAxODQuODcxTDIwNi45MSAwLjYxNjIxMSIgc3Ryb2tlLXdpZHRoPSIwLjc0NTY3OSIgc3Ryb2tlPSIjNjU2NTY1IiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+CjxwYXRoIGlkPSJWZWN0b3IgMjc3MiIgb3BhY2l0eT0iMC41IiBkPSJNMjMxLjU0NyAxODQuODcxTDIzMS41NDcgMC42MTYyMTEiIHN0cm9rZS13aWR0aD0iMC43NDU2NzkiIHN0cm9rZT0iIzY1NjU2NSIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgo8cGF0aCBpZD0iVmVjdG9yIDI3NzMiIG9wYWNpdHk9IjAuNSIgZD0iTTMxNy4yNyAxODQuODcxTDMxNy4yNyAwLjYxNjIxMSIgc3Ryb2tlLXdpZHRoPSIwLjc0NTY3OSIgc3Ryb2tlPSIjNjU2NTY1IiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+CjxwYXRoIGlkPSJWZWN0b3IgMjc3NCIgb3BhY2l0eT0iMC41IiBkPSJNMzM4Ljk0NSAxODQuODcxTDMzOC45NDUgMC42MTYyMTEiIHN0cm9rZS13aWR0aD0iMC43NDU2NzkiIHN0cm9rZT0iIzY1NjU2NSIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgo8cGF0aCBpZD0iVmVjdG9yIDI3NzUiIG9wYWNpdHk9IjAuNSIgZD0iTTQwMC4wNDMgMTg0Ljg3MUw0MDAuMDQzIDAuNjE2MjExIiBzdHJva2Utd2lkdGg9IjAuNzQ1Njc5IiBzdHJva2U9IiM2NTY1NjUiIHN0cm9rZS1vcGFjaXR5PSIwLjUiLz4KPHBhdGggaWQ9IlZlY3RvciAyNzc2IiBvcGFjaXR5PSIwLjUiIGQ9Ik00MjMuNjg4IDE4NC44NzFMNDIzLjY4NyAwLjYxNjIxMSIgc3Ryb2tlLXdpZHRoPSIwLjc0NTY3OSIgc3Ryb2tlPSIjNjU2NTY1IiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+CjxwYXRoIGlkPSJWZWN0b3IgMjc3NyIgb3BhY2l0eT0iMC41IiBkPSJNNDY4LjAyMyAxODQuODcxTDQ2OC4wMjMgMC42MTYyMTEiIHN0cm9rZS13aWR0aD0iMC43NDU2NzkiIHN0cm9rZT0iIzY1NjU2NSIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgo8cGF0aCBpZD0iVmVjdG9yIDI3NzgiIG9wYWNpdHk9IjAuNSIgZD0iTTQ4OC43MTEgMTg0Ljg3MUw0ODguNzExIDAuNjE2MjExIiBzdHJva2Utd2lkdGg9IjAuNzQ1Njc5IiBzdHJva2U9IiM2NTY1NjUiIHN0cm9rZS1vcGFjaXR5PSIwLjUiLz4KPHBhdGggaWQ9IlZlY3RvciAyNzc5IiBvcGFjaXR5PSIwLjUiIGQ9Ik01MzguOTY5IDE4NC44NzFMNTM4Ljk2OSAwLjYxNjIxMSIgc3Ryb2tlLXdpZHRoPSIwLjc0NTY3OSIgc3Ryb2tlPSIjNjU2NTY1IiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+CjxnIGlkPSJHcm91cCAzOCI+CjxwYXRoIGlkPSJWZWN0b3IiIGQ9Ik01MDYuNjExIDEyNC4yOTFDNDk1LjQwNCAxMjQuMjkxIDQ4OS4xNjcgMTE3Ljk1NyA0ODkuMTY3IDEwOC4wMTdDNDg5LjE2NyA5Ni43MTMzIDQ5NS45ODkgOTAuNzY4OSA1MTEuODczIDkwLjc2ODlDNTE5LjA4NCA5MC43Njg5IDUyNC42MzkgOTEuMjU2MSA1MzEuNDYgOTEuODQwOFY4Ni4wOTEzQzUzMS40NiA3Mi42NDM0IDUyNi42ODUgNjMuMDkzNCA1MTQuMjEyIDYzLjA5MzRDNTA4LjA3MyA2My4wOTM0IDUwNC40NTkgNjYuMjYwNSA1MDEuODM2IDY5LjAzNzhDNDk4LjUyMyA3Mi41NDU5IDQ5Ni41NzQgNzcuNDE4NCA0OTYuMTg0IDgzLjc1MjZMNDg5LjQ2IDgyLjc3ODFDNDkxLjIxNCA2OS4xMzUyIDQ5OS42OTIgNjEuMTQ0NCA1MTQuMjEyIDYxLjE0NDRDNTMwLjI5MSA2MS4xNDQ0IDUzNy40MDUgNjkuNDI3NiA1MzcuNDA1IDg0LjcyN1YxMDIuNDYzQzUzNy40MDUgMTA5LjI4NCA1MzcuNiAxMTYuOTE0IDUzNy45ODkgMTIzLjgzM0g1MzAuOTczTDUzMi4yODkgMTAyLjU2TDUzMS41NTggMTA0LjIxN0M1MjYuNjg1IDExNi4wMDggNTE5LjE4MiAxMjQuMjkxIDUwNi42MTEgMTI0LjI5MVpNNTA4LjA3MyAxMTguNzM3QzUxOC4yMDcgMTE4LjczNyA1MjQuMzQ3IDExMy40NzUgNTMxLjE2OCAxMDAuNzA5QzUzMS4zNjMgOTguNjYyMyA1MzEuNDYgOTYuOTA4MiA1MzEuNDYgOTUuMDU2N0M1MjQuNDQ0IDk0Ljc2NDMgNTE5Ljc2NiA5NC42NjY5IDUxMi42NTMgOTQuNjY2OUM1MDEuMDU2IDk0LjY2NjkgNDk1LjU5OSA5OC44NTcyIDQ5NS41OTkgMTA3LjIzOEM0OTUuNTk5IDExNC40NDkgNTAwLjA4MiAxMTguNzM3IDUwOC4wNzMgMTE4LjczN1oiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTQyMy44NzYgMTIzLjgzNkM0MjQuMjY2IDExNC40OCA0MjQuNDYxIDEwMy4yNDUgNDI0LjQ2MSA5Mi42MjMxQzQyNC40NjEgODIuNTg1OCA0MjQuMjY2IDcyLjM1MzcgNDIzLjg3NiA2Mi43MDYySDQzMC43OTVMNDI5Ljk2NyA4MC42MzY2TDQzMC40MDUgNzkuNzU5OEM0MzUuNDcyIDY2Ljk5NCA0NDIuMjk0IDYxLjM0MTkgNDUxLjM1NyA2MS4zNDE5QzQ2Mi4wNzYgNjEuMzQxOSA0NjcuNDM2IDY4LjM1ODIgNDY4LjAyIDgyLjc4MDdMNDYxLjM5NCA4My45NTAxQzQ2MC44MDkgNzEuNjcxNSA0NTcuMzAxIDY2Ljg5NjUgNDQ5LjQwOCA2Ni44OTY1QzQ0MS4yMjIgNjYuODk2NSA0MzUuMTggNzIuNDUxMSA0MzAuMjEgODUuODAxNkM0MzAuMjEgMTA1Ljk3NCA0MzAuNDA1IDExNC4wOTEgNDMwLjc5NSAxMjMuODM2SDQyMy44NzZaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBpZD0iVmVjdG9yXzMiIGQ9Ik0yMzEuMzk2IDEyNC40MTlDMjMxLjc4NiAxMTUuMDYzIDIzMS45ODEgMTAzLjgyOCAyMzEuOTgxIDkzLjIwNjFDMjMxLjk4MSA4My4xNjg4IDIzMS43ODYgNzIuOTM2NyAyMzEuMzk2IDYzLjI4OTJIMjM4LjMxNUwyMzcuMDE1IDgwLjg3OVY4MS42MDk4QzI0NC45MjMgNjkuOTE2IDI0OS45MTIgNjEuOTI0OSAyNjAuMTQ0IDYxLjkyNDlDMjcwLjc2NiA2MS45MjQ5IDI3Ni40MTggNjcuOTY2OCAyNzYuOTA1IDgwLjYzNTJWODEuMzY2MkMyODIuMzYyIDY4LjY5NzggMjg5LjU3MyA2MS45MjQ5IDI5OS44MDUgNjEuOTI0OUMzMTEuMjA3IDYxLjkyNDkgMzE3LjE1MSA2OC45NDEzIDMxNy4xNTEgODMuMTY4OEMzMTcuMTUxIDk5LjczNTIgMzE3LjE1MSAxMTEuMTY2IDMxNy41NDEgMTI0LjQxOUgzMTAuNjIyQzMxMS4wMTIgMTExLjE2NiAzMTEuMjA3IDEwMC45MDUgMzExLjIwNyA4NC45MjI5QzMxMS4yMDcgNzIuNjQ0MyAzMDYuMzM1IDY3LjU3NyAyOTcuNzU5IDY3LjU3N0MyODguNDA0IDY3LjU3NyAyODAuMzggNzMuNTcwMyAyNzcuMzkyIDg2LjM4NDdDMjc3LjM5MiAxMDAuODA3IDI3Ny40OSAxMTEuOTQ1IDI3Ny44NzkgMTI0LjQxOUgyNzAuOTYxQzI3MS4zNSAxMTEuMTY2IDI3MS41NDUgMTAwLjkwNSAyNzEuNTQ1IDg0LjkyMjlDMjcxLjU0NSA3Mi42NDQzIDI2Ni42NzMgNjcuNTc3IDI1OC4wOTcgNjcuNTc3QzI0OC43NDIgNjcuNTc3IDI0My4yMDMgNzMuNjE4OCAyMzcuNzQ2IDg2LjM4NDdDMjM3Ljc0NiAxMDYuNTU3IDIzNy45MjUgMTE0LjY3NCAyMzguMzE1IDEyNC40MTlIMjMxLjM5NloiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfNCIgZD0iTTE4MC4zNDMgMTIzLjk5OEMxNjMuNTgyIDEyMy45OTggMTUzLjQ0NyAxMTIuNDAyIDE1My40NDcgOTIuNTIyMUMxNTMuNDQ3IDcyLjczOTkgMTYzLjM4NyA2MS42MzA3IDE4MC4xNDggNjEuNjMwN0MxOTYuNTE5IDYxLjYzMDcgMjA2LjU1NyA3MS43NjU0IDIwNy4xNDEgOTAuNDc1NkwxNjAuMTcxIDkyLjcxNjlDMTYwLjI2OCAxMTAuMTYgMTY3LjQ4IDEyMi4yOTMgMTgwLjM0MyAxMjIuMjkzQzE4Ny41NTQgMTIyLjI5MyAxOTUuMDYzIDExNi45MzMgMTk3LjI5OSAxMTEuMDM3QzE5OC4zNzEgMTA4LjIxMSAxOTkuMTUxIDEwNS42NzggMTk5LjYzOCAxMDIuNTU5SDIwNi4xNjdDMjAzLjM0MSAxMTYuNjg5IDE5NC4wODMgMTIzLjk5OCAxODAuMzQzIDEyMy45OThaTTIwMC4yMjIgODYuNjc1MUMxOTguNzYxIDcyLjkzNDggMTkxLjY0NyA2My41Nzk3IDE4MC4xNDggNjMuNTc5N0MxNzMuMDM0IDYzLjU3OTcgMTY1LjgyMyA2OC4yMDg1IDE2My4xOTIgNzQuNDk0QzE2MS40MzggNzguNjg0MyAxNjAuNDYzIDgzLjQ1OTMgMTYwLjI2OCA4OS4wMTM5TDIwMC4yMjIgODYuNjc1MVoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJFeGNsdWRlIiBkPSJNNjIuMjIwOSA2Mi45NzI4QzcxLjYxNDggNTMuNTc4OSA4Ni44NDUxIDUzLjU3ODkgOTYuMjM5IDYyLjk3MjhMMTA5LjQ2OSA3Ni4yMDJDMTE4Ljg2MiA4NS41OTU5IDExOC44NjIgMTAwLjgyNyAxMDkuNDY5IDExMC4yMkw5Ni4yMzkgMTIzLjQ1Qzg2Ljg0NTEgMTMyLjg0NCA3MS42MTQ4IDEzMi44NDQgNjIuMjIwOSAxMjMuNDVMNDguOTkxNCAxMTAuMjJDMzkuNTk3NiAxMDAuODI3IDM5LjU5NzUgODUuNTk1OSA0OC45OTE0IDc2LjIwMkw2Mi4yMjA5IDYyLjk3MjhaTTc5LjI4OTYgNjEuMTM4N0M2MS41NzYzIDYxLjEzODcgNDcuMjE2OCA3NS40OTgyIDQ3LjIxNjggOTMuMjExNUM0Ny4yMTY5IDExMC45MjUgNjEuNTc2MyAxMjUuMjg0IDc5LjI4OTYgMTI1LjI4NEM5Ny4wMDI5IDEyNS4yODQgMTExLjM2MiAxMTAuOTI1IDExMS4zNjIgOTMuMjExNUMxMTEuMzYyIDc1LjQ5ODIgOTcuMDAyOSA2MS4xMzg3IDc5LjI4OTYgNjEuMTM4N1oiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfNSIgZD0iTTM2OS4xMTQgMTI0LjQ4NUMzNDkuOTc4IDEyNC40ODUgMzM4LjYwNiAxMTIuODg5IDMzOC42MDYgOTMuMDA5M0MzMzguNjA2IDczLjIyNzEgMzQ5Ljk3OCA2MS42MzA3IDM2OS4xMTQgNjEuNjMwN0MzODguMTQgNjEuNjMwNyAzOTkuNTEyIDczLjIyNzEgMzk5LjUxMiA5My4wMDkzQzM5OS41MTIgMTEyLjg4OSAzODguMTQgMTI0LjQ4NSAzNjkuMTE0IDEyNC40ODVaTTM2OS4xMTQgMTIzLjAyNEMzNzcuMzE1IDEyMy4wMjQgMzg1LjY4MyAxMTcuNjY0IDM4OC43OTYgMTExLjIzMkMzOTEuMjAxIDEwNi4yNjIgMzkyLjE4NiAxMDAuMjIxIDM5Mi4xODYgOTMuMDA5M0MzOTIuMTg2IDc1LjY2MzQgMzgzLjg3NSA2My4wOTI0IDM2OS4xMTQgNjMuMDkyNEMzNjAuODAzIDYzLjA5MjQgMzUyLjU0OCA2OC41NDMgMzQ5LjQzMSA3NC45ODEyQzM0Ny4wMjYgNzkuOTUxMSAzNDUuOTMyIDg1Ljg5NTUgMzQ1LjkzMiA5My4wMDkzQzM0NS45MzIgMTEwLjU1IDM1NC4yNDMgMTIzLjAyNCAzNjkuMTE0IDEyMy4wMjRaIiBmaWxsPSJibGFjayIvPgo8L2c+CjwvZz4KPC9zdmc+Cg==" width="604" height="185.185" alt="" />
+      <img class="logo__mark" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjQ5Ni4wNDMiIGhlaWdodD0iNzQuNTY3OSIgdmlld0JveD0iMCAwIDQ5Ni4wNDMgNzQuNTY3OSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9Ikdyb3VwIDM4Ij4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTQ2NC42NjUgNjguMzY0QzQ1My40NTggNjguMzY0IDQ0Ny4yMjEgNjIuMDI5OCA0NDcuMjIxIDUyLjA5QzQ0Ny4yMjEgNDAuNzg1OSA0NTQuMDQzIDM0Ljg0MTUgNDY5LjkyNyAzNC44NDE1QzQ3Ny4xMzggMzQuODQxNSA0ODIuNjkzIDM1LjMyODcgNDg5LjUxNCAzNS45MTM0VjMwLjE2MzlDNDg5LjUxNCAxNi43MTYgNDg0LjczOSA3LjE2NTk2IDQ3Mi4yNjYgNy4xNjU5NkM0NjYuMTI3IDcuMTY1OTYgNDYyLjUxMyAxMC4zMzMxIDQ1OS44OSAxMy4xMTA0QzQ1Ni41NzcgMTYuNjE4NSA0NTQuNjI4IDIxLjQ5MSA0NTQuMjM4IDI3LjgyNTJMNDQ3LjUxNCAyNi44NTA3QzQ0OS4yNjggMTMuMjA3OCA0NTcuNzQ2IDUuMjE2OTggNDcyLjI2NiA1LjIxNjk4QzQ4OC4zNDUgNS4yMTY5OCA0OTUuNDU5IDEzLjUwMDEgNDk1LjQ1OSAyOC43OTk2VjQ2LjUzNTRDNDk1LjQ1OSA1My4zNTY4IDQ5NS42NTQgNjAuOTg2NiA0OTYuMDQzIDY3LjkwNTVINDg5LjAyN0w0OTAuMzQzIDQ2LjYzMjhMNDg5LjYxMiA0OC4yODk1QzQ4NC43MzkgNjAuMDgwOCA0NzcuMjM2IDY4LjM2NCA0NjQuNjY1IDY4LjM2NFpNNDY2LjEyNyA2Mi44MDk0QzQ3Ni4yNjEgNjIuODA5NCA0ODIuNDAxIDU3LjU0NzEgNDg5LjIyMiA0NC43ODEzQzQ4OS40MTcgNDIuNzM0OSA0ODkuNTE0IDQwLjk4MDggNDg5LjUxNCAzOS4xMjkzQzQ4Mi40OTggMzguODM2OSA0NzcuODIgMzguNzM5NSA0NzAuNzA3IDM4LjczOTVDNDU5LjExIDM4LjczOTUgNDUzLjY1MyA0Mi45Mjk4IDQ1My42NTMgNTEuMzEwNEM0NTMuNjUzIDU4LjUyMTYgNDU4LjEzNiA2Mi44MDk0IDQ2Ni4xMjcgNjIuODA5NFoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTM4MS45MyA2Ny45MDgyQzM4Mi4zMiA1OC41NTMxIDM4Mi41MTUgNDcuMzE3NiAzODIuNTE1IDM2LjY5NTdDMzgyLjUxNSAyNi42NTg0IDM4Mi4zMiAxNi40MjYyIDM4MS45MyA2Ljc3ODhIMzg4Ljg0OUwzODguMDIxIDI0LjcwOTJMMzg4LjQ1OSAyMy44MzI0QzM5My41MjYgMTEuMDY2NiA0MDAuMzQ4IDUuNDE0NTEgNDA5LjQxMSA1LjQxNDUxQzQyMC4xMyA1LjQxNDUxIDQyNS40OSAxMi40MzA4IDQyNi4wNzQgMjYuODUzM0w0MTkuNDQ4IDI4LjAyMjdDNDE4Ljg2MyAxNS43NDQxIDQxNS4zNTUgMTAuOTY5MSA0MDcuNDYyIDEwLjk2OTFDMzk5LjI3NiAxMC45NjkxIDM5My4yMzQgMTYuNTIzNyAzODguMjY0IDI5Ljg3NDJDMzg4LjI2NCA1MC4wNDYyIDM4OC40NTkgNTguMTYzMyAzODguODQ5IDY3LjkwODJIMzgxLjkzWiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl8zIiBkPSJNMTg5LjQ1IDY4LjQ5MTJDMTg5Ljg0IDU5LjEzNjEgMTkwLjAzNSA0Ny45MDA2IDE5MC4wMzUgMzcuMjc4N0MxOTAuMDM1IDI3LjI0MTQgMTg5Ljg0IDE3LjAwOTMgMTg5LjQ1IDcuMzYxODNIMTk2LjM2OUwxOTUuMDY5IDI0Ljk1MTZWMjUuNjgyNEMyMDIuOTc3IDEzLjk4ODYgMjA3Ljk2NiA1Ljk5NzU0IDIxOC4xOTggNS45OTc1NEMyMjguODIgNS45OTc1NCAyMzQuNDcyIDEyLjAzOTQgMjM0Ljk1OSAyNC43MDc4VjI1LjQzODhDMjQwLjQxNiAxMi43NzA0IDI0Ny42MjcgNS45OTc1NCAyNTcuODU5IDUuOTk3NTRDMjY5LjI2MSA1Ljk5NzU0IDI3NS4yMDUgMTMuMDEzOSAyNzUuMjA1IDI3LjI0MTRDMjc1LjIwNSA0My44MDc4IDI3NS4yMDUgNTUuMjM4MSAyNzUuNTk1IDY4LjQ5MTJIMjY4LjY3NkMyNjkuMDY2IDU1LjIzODEgMjY5LjI2MSA0NC45NzcyIDI2OS4yNjEgMjguOTk1NUMyNjkuMjYxIDE2LjcxNjkgMjY0LjM4OSAxMS42NDk2IDI1NS44MTMgMTEuNjQ5NkMyNDYuNDU4IDExLjY0OTYgMjM4LjQzNCAxNy42NDI5IDIzNS40NDYgMzAuNDU3M0MyMzUuNDQ2IDQ0Ljg3OTcgMjM1LjU0NCA1Ni4wMTc3IDIzNS45MzMgNjguNDkxMkgyMjkuMDE1QzIyOS40MDQgNTUuMjM4MSAyMjkuNTk5IDQ0Ljk3NzIgMjI5LjU5OSAyOC45OTU1QzIyOS41OTkgMTYuNzE2OSAyMjQuNzI3IDExLjY0OTYgMjE2LjE1MSAxMS42NDk2QzIwNi43OTYgMTEuNjQ5NiAyMDEuMjU3IDE3LjY5MTQgMTk1LjggMzAuNDU3M0MxOTUuOCA1MC42MjkyIDE5NS45NzkgNTguNzQ2MyAxOTYuMzY5IDY4LjQ5MTJIMTg5LjQ1WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggaWQ9IlZlY3Rvcl80IiBkPSJNMTM4LjM5NyA2OC4wNzA3QzEyMS42MzYgNjguMDcwNyAxMTEuNTAxIDU2LjQ3NDMgMTExLjUwMSAzNi41OTQ3QzExMS41MDEgMTYuODEyNSAxMjEuNDQxIDUuNzAzMyAxMzguMjAyIDUuNzAzM0MxNTQuNTczIDUuNzAzMyAxNjQuNjExIDE1LjgzOCAxNjUuMTk1IDM0LjU0ODJMMTE4LjIyNSAzNi43ODk1QzExOC4zMjIgNTQuMjMyOSAxMjUuNTM0IDY2LjM2NTMgMTM4LjM5NyA2Ni4zNjUzQzE0NS42MDggNjYuMzY1MyAxNTMuMTE3IDYxLjAwNTYgMTU1LjM1MyA1NS4xMUMxNTYuNDI1IDUyLjI4MzkgMTU3LjIwNSA0OS43NTAzIDE1Ny42OTIgNDYuNjMxOUgxNjQuMjIxQzE2MS4zOTUgNjAuNzYyIDE1Mi4xMzcgNjguMDcwNyAxMzguMzk3IDY4LjA3MDdaTTE1OC4yNzYgMzAuNzQ3N0MxNTYuODE1IDE3LjAwNzQgMTQ5LjcwMSA3LjY1MjI4IDEzOC4yMDIgNy42NTIyOEMxMzEuMDg4IDcuNjUyMjggMTIzLjg3NyAxMi4yODExIDEyMS4yNDYgMTguNTY2NkMxMTkuNDkyIDIyLjc1NjkgMTE4LjUxNyAyNy41MzE5IDExOC4zMjIgMzMuMDg2NUwxNTguMjc2IDMwLjc0NzdaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBpZD0iRXhjbHVkZSIgZD0iTTIwLjI3NDkgNy4wNDUzN0MyOS42Njg4IC0yLjM0ODQ2IDQ0Ljg5OTEgLTIuMzQ4NDYgNTQuMjkzIDcuMDQ1MzdMNjcuNTIyNSAyMC4yNzQ2Qzc2LjkxNjQgMjkuNjY4NSA3Ni45MTY0IDQ0Ljg5OTEgNjcuNTIyNSA1NC4yOTNMNTQuMjkzIDY3LjUyMjZDNDQuODk5MSA3Ni45MTY0IDI5LjY2ODggNzYuOTE2NCAyMC4yNzQ5IDY3LjUyMjZMNy4wNDU0IDU0LjI5M0MtMi4zNDg0NCA0NC44OTkxIC0yLjM0ODQ5IDI5LjY2ODUgNy4wNDU0IDIwLjI3NDZMMjAuMjc0OSA3LjA0NTM3Wk0zNy4zNDM2IDUuMjExMjZDMTkuNjMwMyA1LjIxMTI2IDUuMjcwNzkgMTkuNTcwOCA1LjI3MDc5IDM3LjI4NDFDNS4yNzA4NSA1NC45OTc0IDE5LjYzMDMgNjkuMzU2OSAzNy4zNDM2IDY5LjM1NjlDNTUuMDU2OSA2OS4zNTY5IDY5LjQxNjMgNTQuOTk3NCA2OS40MTY0IDM3LjI4NDFDNjkuNDE2NCAxOS41NzA4IDU1LjA1NjkgNS4yMTEyNyAzNy4zNDM2IDUuMjExMjZaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBpZD0iVmVjdG9yXzUiIGQ9Ik0zMjcuMTY4IDY4LjU1NzlDMzA4LjAzMiA2OC41NTc5IDI5Ni42NiA1Ni45NjE1IDI5Ni42NiAzNy4wODE5QzI5Ni42NiAxNy4yOTk3IDMwOC4wMzIgNS43MDMzIDMyNy4xNjggNS43MDMzQzM0Ni4xOTQgNS43MDMzIDM1Ny41NjYgMTcuMjk5NyAzNTcuNTY2IDM3LjA4MTlDMzU3LjU2NiA1Ni45NjE1IDM0Ni4xOTQgNjguNTU3OSAzMjcuMTY4IDY4LjU1NzlaTTMyNy4xNjggNjcuMDk2MkMzMzUuMzY5IDY3LjA5NjIgMzQzLjczNyA2MS43MzY1IDM0Ni44NSA1NS4zMDQ5QzM0OS4yNTUgNTAuMzM1IDM1MC4yNCA0NC4yOTMxIDM1MC4yNCAzNy4wODE5QzM1MC4yNCAxOS43MzYgMzQxLjkyOSA3LjE2NTAzIDMyNy4xNjggNy4xNjUwM0MzMTguODU3IDcuMTY1MDMgMzEwLjYwMiAxMi42MTU2IDMwNy40ODUgMTkuMDUzOEMzMDUuMDggMjQuMDIzNyAzMDMuOTg2IDI5Ljk2ODEgMzAzLjk4NiAzNy4wODE5QzMwMy45ODYgNTQuNjIyNyAzMTIuMjk3IDY3LjA5NjIgMzI3LjE2OCA2Ny4wOTYyWiIgZmlsbD0iYmxhY2siLz4KPC9nPgo8L3N2Zz4K" width="496.043" height="74.5679" alt="emora" />
+    </button>
+  </header>
+
+  <main>
+    <!-- B. Intro -->
+    <section class="intro reveal" aria-labelledby="brand-color-title">
+      <h1 id="brand-color-title" class="intro__title title-sm">Brand Color</h1>
+      <div class="intro__body body-md">
+        <p>건강하고 에너지를 담은 터콰이즈 색상을 통해 emora의 톤과 무드를 담았습니다.<br />
+        설정한 emora 터콰이즈는 이모라가 개입한 ‘틈’을 상징하며, ~~</p>
+        <p>이모라 감정색깔 어쩌구 저저구</p>
+      </div>
+    </section>
+
+    <!-- C. Palette — each swatch copies its HEX on click -->
+    <section class="palette" aria-label="emora 컬러 팔레트">
+      <div class="palette__col palette__col--light">
+        <button class="swatch swatch--light reveal" style="--swatch: var(--emora-light)" data-hex="E6FBF9" type="button">
+          <span class="swatch__state swatch__state--body">Light</span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+        <button class="swatch swatch--light reveal" style="--swatch: var(--emora-light-hover)" data-hex="DAF9F7" type="button">
+          <span class="swatch__state swatch__state--body">Hover</span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+        <button class="swatch swatch--light swatch--hero reveal" style="--swatch: var(--emora-light-active)" data-hex="B3F2EE" type="button">
+          <span class="swatch__info swatch__info--compact">
+            <span class="swatch__name">Emora Turquoise Light</span>
+            <span class="swatch__values">
+              <span>HEX</span><span>B3F2EE</span>
+              <span>RGB</span><span>179,242,238</span>
+            </span>
+          </span>
+          <span class="swatch__state">Active</span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+        <button class="swatch swatch--light swatch--mint reveal" style="--swatch: var(--emora-mint)" data-hex="BFFFD1" type="button">
+          <span class="swatch__info swatch__info--mint">
+            <span class="swatch__name">Emora Mint Green</span>
+            <span class="swatch__values">
+              <span>HEX</span><span>BFFFD1</span>
+              <span>RGB</span><span>191,255,209</span>
+            </span>
+          </span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="palette__col palette__col--turquoise">
+        <button class="swatch swatch--dark swatch--hero reveal" style="--swatch: var(--emora-turquoise)" data-hex="09D5C7" type="button">
+          <span class="swatch__info">
+            <span class="swatch__name">Emora Turquoise Blue</span>
+            <span class="swatch__values">
+              <span>HEX</span><span>09D5C7</span>
+              <span>RGB</span><span>9,213,199</span>
+            </span>
+          </span>
+          <span class="swatch__state">Normal</span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+        <button class="swatch swatch--dark reveal" style="--swatch: var(--emora-turquoise-hover)" data-hex="08C0B3" type="button">
+          <span class="swatch__state">Hover</span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+        <button class="swatch swatch--dark reveal" style="--swatch: var(--emora-turquoise-active)" data-hex="07AA9F" type="button">
+          <span class="swatch__state">Active</span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+        <button class="swatch swatch--dark reveal" style="--swatch: var(--emora-turquoise-dark)" data-hex="07A095" type="button">
+          <span class="swatch__state">Dark</span>
+          <span class="swatch__hint" aria-hidden="true"></span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+<script>
+document.documentElement.classList.add("js");
+
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ── Hero: show the construction grid briefly, then reveal the mark ──
+const logo = document.querySelector(".logo");
+
+if (!reducedMotion) {
+  logo.classList.add("is-loading", "is-intro");
+  requestAnimationFrame(() => {
+    setTimeout(() => logo.classList.remove("is-loading"), 250);
+    setTimeout(() => logo.classList.remove("is-intro"), 1600);
+  });
+}
+
+// Click pins the grid open; hover/focus previews it (CSS)
+logo.addEventListener("click", () => {
+  const pinned = logo.getAttribute("aria-pressed") === "true";
+  logo.setAttribute("aria-pressed", String(!pinned));
+});
+
+// ── Palette: click a swatch to copy its HEX ──
+const toast = document.querySelector(".toast");
+let toastTimer;
+
+function showToast(hex) {
+  toast.innerHTML = "";
+  const chip = document.createElement("span");
+  chip.className = "toast__chip";
+  chip.style.background = `#${hex}`;
+  toast.append(chip, `#${hex} 복사됨`);
+  toast.classList.add("is-visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 1800);
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    // file:// and older browsers: fall back to a hidden textarea
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.append(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+  }
+}
+
+document.querySelectorAll(".swatch").forEach((swatch) => {
+  const hex = swatch.dataset.hex;
+  const hint = swatch.querySelector(".swatch__hint");
+  const state = swatch.querySelector(".swatch__state")?.textContent;
+  const name = swatch.querySelector(".swatch__name")?.textContent;
+
+  hint.textContent = `#${hex} · 복사`;
+  swatch.setAttribute("aria-label", `${name ?? state} #${hex} 복사`);
+
+  swatch.addEventListener("click", async () => {
+    await copyText(`#${hex}`);
+    showToast(hex);
+    hint.textContent = "복사됨 ✓";
+    swatch.classList.add("is-copied");
+    clearTimeout(swatch.copyTimer);
+    swatch.copyTimer = setTimeout(() => {
+      swatch.classList.remove("is-copied");
+      hint.textContent = `#${hex} · 복사`;
+    }, 1400);
+  });
+});
+
+// ── Scroll reveal, staggered within each column ──
+document.querySelectorAll(".palette__col").forEach((col) => {
+  col.querySelectorAll(".reveal").forEach((el, i) => el.style.setProperty("--i", i));
+});
+
+if (reducedMotion || !("IntersectionObserver" in window)) {
+  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+} else {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.15 }
+  );
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+}
+</script>
+</body>
+</html>
